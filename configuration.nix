@@ -76,9 +76,18 @@
 
   services.upower.enable = true;
 
-  programs = {
-    hyprlock.enable = true;
+  services.logind.settings.Login = {
+    NAutoVTs = 0;
+    ReserveVT = 0;
+  };
 
+  systemd.services."getty@tty2".enable = false;
+  systemd.services."getty@tty3".enable = false;
+  systemd.services."getty@tty4".enable = false;
+  systemd.services."getty@tty5".enable = false;
+  systemd.services."getty@tty6".enable = false;
+
+  programs = {
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -144,17 +153,6 @@
     };
   };
 
-  systemd.services."getty@tty2".enable = false;
-  systemd.services."getty@tty3".enable = false;
-  systemd.services."getty@tty4".enable = false;
-  systemd.services."getty@tty5".enable = false;
-  systemd.services."getty@tty6".enable = false;
-
-  services.logind.settings.Login = {
-    NAutoVTs = 0;
-    ReserveVT = 0;
-  };
-
   system.stateVersion = "26.05";
 
   xdg.portal = {
@@ -166,10 +164,6 @@
 
   hardware.graphics = {
     enable = true;
-    #bluetooth = {
-    #  enable = true;
-    #  powerOnBoot = true;
-    #};
     enable32Bit = true;
     extraPackages = with pkgs; [
       intel-media-driver

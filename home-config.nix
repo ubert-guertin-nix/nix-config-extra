@@ -12,7 +12,6 @@
 
   stylix.targets = {
     kitty.enable = true;
-    hyprlock.enable = true;
     gtk.enable = true;
     firefox.enable = true;
   };
@@ -127,6 +126,11 @@
         set -gx EDITOR nvim
         set -gx VISUAL nvim
         set -gx NNN_OPTS e
+
+        if status is-interactive
+          and not set -q TMUX
+          tmux new-session -A -s main
+        end
       '';
 
       shellAbbrs = {
@@ -140,41 +144,6 @@
         off = "shutdown now";
         svim = "sudo -E nvim";
         vim = "nvim";
-      };
-    };
-
-    hyprlock = {
-      enable = true;
-      settings = {
-        general = {
-          disable_loading_bar = true;
-          grace = 0;
-          hide_cursor = true;
-        };
-
-        input-field = {
-          size = "260, 50";
-          outline_thickness = 2;
-          dots_size = 0.2;
-          dots_spacing = 0.2;
-          dots_center = true;
-          fade_on_empty = false;
-          rounding = 0;
-          placeholder_text = "<i>Password...</i>";
-          position = "0, -50";
-          halign = "center";
-          valign = "center";
-        };
-
-        label = [
-          {
-            text = "$TIME";
-            font_size = 64;
-            position = "0, 80";
-            halign = "center";
-            valign = "center";
-          }
-        ];
       };
     };
 
@@ -215,6 +184,39 @@
         enable_audio_bell = false;
       };
     };
+
+    tmux = {
+      enable = true;
+      baseIndex = 1;
+      escapeTime = 0;
+      terminal = "kitty";
+      historyLimit = 10000;
+      extraConfig = ''
+        set -g prefix M-Space
+        unbind C-b
+        unbind q
+        unbind Q
+        bind M-Space set status-style bg=#${config.lib.stylix.colors.base00},fg=#${config.lib.stylix.colors.base05} \; send-prefix
+        bind q kill-pane
+        bind Q kill-window
+        bind \\ split-window -h -c "#{pane_current_path}"
+        bind - split-window -v -c "#{pane_current_path}"
+        bind -n M-h select-pane -L
+        bind -n M-j select-pane -D
+        bind -n M-k select-pane -U
+        bind -n M-l select-pane -R
+        bind -n M-H resize-pane -L 5
+        bind -n M-J resize-pane -D 2
+        bind -n M-K resize-pane -U 2
+        bind -n M-L resize-pane -R 5
+        bind c new-window -c "#{pane_current_path}"
+        setw -g mode-keys vi
+        set -g status off
+        set -g focus-events on
+        set -g pane-border-style fg=#${config.lib.stylix.colors.base02}
+        set -g pane-active-border-style fg=#${config.lib.stylix.colors.base09}
+      '';
+    };
   };
 
   services.wayle = {
@@ -250,12 +252,11 @@
             center = [ "clock" ];
             right = [
               "keyboard-input"
-              "separator"
               "battery"
               "bluetooth"
               "network"
               "volume"
-              "brightness"
+              "notifications"
             ];
           }
         ];
@@ -264,7 +265,7 @@
       modules = {
         battery.label-show = false;
         bluetooth.label-show = false;
-        brightness.label-show = false;
+        notification.label-show = false;
 
         clock = {
           icon-show = false;
@@ -296,7 +297,6 @@
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
@@ -353,7 +353,7 @@
 
       exec-once = [
         "${pkgs.hypridle}/bin/hypridle"
-        "hyprlock"
+        "kitty"
       ];
 
       input = {

@@ -27,7 +27,6 @@ in
     let g:colors_name = "stylix"
     set termguicolors
 
-    " Base UI
     hi Normal guifg=#${config.lib.stylix.colors.base05} guibg=#${config.lib.stylix.colors.base00}
     hi NormalNC guifg=#${config.lib.stylix.colors.base05} guibg=#${config.lib.stylix.colors.base00}
     hi NormalFloat guifg=#${config.lib.stylix.colors.base05} guibg=#${config.lib.stylix.colors.base01}
@@ -43,7 +42,6 @@ in
     hi Pmenu guifg=#${config.lib.stylix.colors.base05} guibg=#${config.lib.stylix.colors.base01}
     hi PmenuSel guifg=#${config.lib.stylix.colors.base01} guibg=#${config.lib.stylix.colors.base0D}
 
-    " Syntax
     hi Comment guifg=#${config.lib.stylix.colors.base03} gui=italic
     hi String guifg=#${config.lib.stylix.colors.base0B}
     hi Number guifg=#${config.lib.stylix.colors.base09}
@@ -57,7 +55,6 @@ in
     hi Special guifg=#${config.lib.stylix.colors.base0C}
     hi Delimiter guifg=#${config.lib.stylix.colors.base05}
 
-    " Treesitter Links
     hi! link @variable Identifier
     hi! link @variable.builtin Special
     hi! link @variable.parameter Identifier
@@ -77,23 +74,22 @@ in
     hi! link @comment Comment
     hi! link @constant Constant
 
-    " Nettoyage Snacks Explorer / Snacks Picker (LazyVim v14+)
-      hi SnacksPickerInput guibg=#${c.base00} guifg=#${c.base05}
-      hi SnacksPickerInputTitle guibg=#${c.base00} guifg=#${c.base0A} gui=bold
-      hi SnacksPickerBox guibg=#${c.base00}
-      hi SnacksPickerList guibg=#${c.base00}
-      hi SnacksPickerBorder guifg=#${c.base03} guibg=#${c.base00}
-      hi SnacksPickerPrompt guifg=#${c.base0D} guibg=#${c.base00}
-      hi SnacksPickerMatch guifg=#${c.base0A} gui=bold
-      hi SnacksPickerTree guifg=#${c.base03} guibg=#${c.base00}
+    hi SnacksPickerInput guibg=#${c.base00} guifg=#${c.base05}
+    hi SnacksPickerInputTitle guibg=#${c.base00} guifg=#${c.base0A} gui=bold
+    hi SnacksPickerBox guibg=#${c.base00}
+    hi SnacksPickerList guibg=#${c.base00}
+    hi SnacksPickerBorder guifg=#${c.base03} guibg=#${c.base00}
+    hi SnacksPickerPrompt guifg=#${c.base0D} guibg=#${c.base00}
+    hi SnacksPickerMatch guifg=#${c.base0A} gui=bold
+    hi SnacksPickerTree guifg=#${c.base03} guibg=#${c.base00}
 
-      " Nettoyage Neo-tree / SignColumn / Indent Markers
-      hi SignColumn guibg=#${c.base00}
-      hi NeoTreeIndentMarker guifg=#${c.base03} guibg=#${c.base00}
-      hi NeoTreeExpander guifg=#${c.base03} guibg=#${c.base00}
-      hi NeoTreeNormal guibg=#${c.base00} guifg=#${c.base05}
-      hi NeoTreeNormalNC guibg=#${c.base00} guifg=#${c.base05}
-      hi NeoTreeWinSeparator guifg=#${c.base02} guibg=#${c.base00}
+    " Nettoyage Neo-tree / SignColumn / Indent Markers
+    hi SignColumn guibg=#${c.base00}
+    hi NeoTreeIndentMarker guifg=#${c.base03} guibg=#${c.base00}
+    hi NeoTreeExpander guifg=#${c.base03} guibg=#${c.base00}
+    hi NeoTreeNormal guibg=#${c.base00} guifg=#${c.base05}
+    hi NeoTreeNormalNC guibg=#${c.base00} guifg=#${c.base05}
+    hi NeoTreeWinSeparator guifg=#${c.base02} guibg=#${c.base00}
   '';
 
   xdg.configFile."nvim/init.lua".force = true;
@@ -129,7 +125,6 @@ in
     })
   '';
 
-  # 3. Supprime les anciens résidus de plugins
   xdg.configFile."nvim/lua/plugins/stylix.lua".text = lib.mkForce ''
     return {}
   '';
