@@ -39,34 +39,28 @@
     ];
 
     packages = with pkgs; [
-      # Icons + Fonts
       font-awesome
       papirus-icon-theme
       adwaita-icon-theme
 
-      # TUI
       gh-dash
       lazygit
       kiro-cli
 
-      # GUI
       libnotify
       spotify
       swaybg
       shotcut
 
-      # Audio, brightness
       wl-clipboard
       brightnessctl
       wireplumber
 
-      # Utils
       gh
       zip
       eza
       acpi
 
-      # Screenshot
       grim
       slurp
     ];
@@ -196,7 +190,7 @@
         unbind C-b
         unbind q
         unbind Q
-        bind M-Space set status-style bg=#${config.lib.stylix.colors.base00},fg=#${config.lib.stylix.colors.base05} \; send-prefix
+        bind M-Space send-prefix
         bind q kill-pane
         bind Q kill-window
         bind \\ split-window -h -c "#{pane_current_path}"

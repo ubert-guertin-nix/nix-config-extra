@@ -13,11 +13,10 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  # Chiffrement LUKS2 sur la partition root
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/nvme0n1p2";
-    allowDiscards = true;  # performance SSD
-    bypassWorkqueues = true;  # performance SSD
+    allowDiscards = true;
+    bypassWorkqueues = true;
   };
 
   fileSystems."/" = {

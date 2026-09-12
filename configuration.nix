@@ -133,7 +133,6 @@
     unzip
     gnutar
     gzip
-    curl
     git
     gnumake
     gcc
@@ -147,10 +146,16 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
         user = "greeter";
       };
     };
+  };
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
   };
 
   system.stateVersion = "26.05";

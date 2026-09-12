@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -18,7 +17,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
       home-manager,
       stylix,
       ...
@@ -29,15 +27,10 @@
       gitEmail = "${username}@nixos.org";
       gitName = username;
 
-      unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
 
       sharedArgs = {
         inherit
           inputs
-          unstable
           username
           gitName
           gitEmail
